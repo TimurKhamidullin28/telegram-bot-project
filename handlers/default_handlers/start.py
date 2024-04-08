@@ -1,6 +1,6 @@
 from telebot.types import Message
 from loader import bot
-from database.common.models import User
+from database.common.models import db, User
 from peewee import IntegrityError
 
 
@@ -12,12 +12,13 @@ def bot_start(message: Message) -> None:
     last_name = message.from_user.last_name
 
     try:
-        User.create(
-            user_id=user_id,
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-        )
-        bot.reply_to(message, f'Добро пожаловать в бот, который поможет найти любой фильм на сервисе "Кинопоиск"!')
+        with db:
+            User.create(
+                user_id=user_id,
+                username=username,
+                first_name=first_name,
+                last_name=last_name,
+            )
+            bot.reply_to(message, f'Добро пожаловать в бот, который поможет найти любой фильм на сервисе "Кинопоиск"!')
     except IntegrityError:
         bot.reply_to(message, f"Рад вас снова видеть, {message.from_user.full_name}!")

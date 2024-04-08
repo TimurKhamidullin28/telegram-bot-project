@@ -1,3 +1,4 @@
+from datetime import datetime
 from config_data.config import DB_PATH
 from peewee import CharField, DateField, ForeignKeyField, IntegerField, Model, SqliteDatabase
 
@@ -19,11 +20,11 @@ class User(BaseModel):
 class History(BaseModel):
     user = ForeignKeyField(User, backref="history")
     title = CharField()
-    created_at = DateField()
+    created_at = DateField(default=datetime.now())
 
     def __str__(self):
         return '{date} - {film_title}'.format(
-            date=self.created_at,
+            date=self.created_at.strftime("%d.%m.%Y, %H:%M:%S"),
             film_title=self.title
         )
 
@@ -47,4 +48,3 @@ class Movie:
                 f'Краткое описание: {str(*self.description)}\nПостер: {self.poster_url}\n'
 
         return text
-

@@ -13,5 +13,6 @@ KINOPOISK_API_KEY = os.getenv("KINOPOISK_API_KEY")
 
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
-    ("help", "Вывести справку по командам бота")
+    ("help", "Вывести справку по командам бота"),
+    ("movie", "Найти фильм по названию")
 )
