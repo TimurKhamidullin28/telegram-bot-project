@@ -11,6 +11,8 @@ DB_PATH = os.path.join('/sqlite', 'kp_database.db')
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 KINOPOISK_API_KEY = os.getenv("KINOPOISK_API_KEY")
 
+BASE_URL = 'https://api.kinopoisk.dev/v1.4/movie'
+
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
     ("help", "Вывести справку по командам бота"),
