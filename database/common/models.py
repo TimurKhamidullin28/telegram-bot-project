@@ -1,6 +1,5 @@
-from datetime import datetime
 from config_data.config import DB_PATH
-from peewee import CharField, DateField, ForeignKeyField, IntegerField, Model, SqliteDatabase
+from peewee import AutoField, CharField, DateField, ForeignKeyField, IntegerField, Model, SqliteDatabase
 
 db = SqliteDatabase(DB_PATH)
 
@@ -18,9 +17,10 @@ class User(BaseModel):
 
 
 class History(BaseModel):
+    history_id = AutoField()
     user = ForeignKeyField(User, backref="history")
     title = CharField()
-    created_at = DateField(default=datetime.now())
+    created_at = DateField()
 
     def __str__(self):
         return '{date} - {film_title}'.format(
