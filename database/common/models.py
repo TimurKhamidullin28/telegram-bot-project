@@ -30,7 +30,8 @@ class History(BaseModel):
 
 
 class Movie:
-    def __init__(self, name, year, country, genre, rating_kp, rating_imdb, description, poster_url):
+    def __init__(self, id_movie, name, year, country, genre, rating_kp, rating_imdb, description, poster_url):
+        self.id_movie = id_movie,
         self.name = name,
         self.year = year,
         self.country = country,
@@ -42,9 +43,9 @@ class Movie:
 
     def __str__(self):
         text = f'Информация о фильме: \n'\
-                f'Название: {str(*self.name)}\nГод: {int(*self.year)}\nСтрана: {str(*self.country)}\n'\
-                f'Жанр: {str(*self.genre)}\nРейтинг КП: {float(*self.rating_kp)}\n'\
-                f'Рейтинг IMDb: {float(*self.rating_imdb)}\n'\
-                f'Краткое описание: {str(*self.description)}\nПостер: {self.poster_url}\n'
+               f'Название: {str(*self.name)}\nГод: {int(*self.year)}\nСтрана: {str(*self.country)}\n'\
+               f'Жанр: {str(*self.genre)}\nРейтинг КП: {float(*self.rating_kp)}\n'\
+               f'Рейтинг IMDb: {float(*self.rating_imdb)}\n'\
+               f'Краткое описание: {str(*self.description)}\nПостер: {self.poster_url}\n'
 
         return text
