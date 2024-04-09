@@ -42,7 +42,7 @@ class Movie:
         self.poster_url = poster_url
 
     def __str__(self):
-        text = f'Информация о фильме: \n'\
+        text = f'Информация о фильме: \n\n'\
                f'Название: {str(*self.name)}\nГод: {int(*self.year)}\nСтрана: {str(*self.country)}\n'\
                f'Жанр: {str(*self.genre)}\nРейтинг КП: {float(*self.rating_kp)}\n'\
                f'Рейтинг IMDb: {float(*self.rating_imdb)}\n'\
