@@ -27,9 +27,9 @@ def find_movie(message: Message) -> None:
 def process_film_title(message: Message) -> None:
     with bot.retrieve_data(message.from_user.id) as data:
         data["user_history"]["title"] = message.text
-        data["user_history"]["created_at"] = datetime.now()
+        data["user_history"]["created_at"] = datetime.now().strftime("%d.%m.%Y, %H:%M:%S")
     with db:
-        History(**data["user_history"])
+        History.create(**data["user_history"])
     response = api.main.find_movie(title=message.text)
     new_data = json.loads(response.text)
     lst_movies = create_movie_list(new_data['docs'])
