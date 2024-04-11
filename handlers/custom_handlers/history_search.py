@@ -1,17 +1,18 @@
 from telebot.types import List, Message
-from database.common.models import User, History
+from database.common.models import History
+from database.functions import checkout_user, user_history_info
 from loader import bot
 
 
 @bot.message_handler(state="*", commands=["history"])
 def handle_history(message: Message) -> None:
     user_id = message.from_user.id
-    user = User.get_or_none(User.user_id == user_id)
+    user = checkout_user(user_id)
     if user is None:
         bot.reply_to(message, "Вы не зарегистрированы. Напишите /start")
         return
 
-    history_lst: List[History] = user.history.order_by(-History.history_id).limit(20)
+    history_lst: List[History] = user_history_info(user)
 
     result = list()
     result.append("Ваша история поиска:\n")
