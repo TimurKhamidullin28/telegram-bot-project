@@ -25,7 +25,8 @@ def find_movie(title: Any, page: int = 1, limit: int = 10) -> Response:
             'query': title.lower() if isinstance(title, str) else title
         }, headers={'X-API-KEY': KINOPOISK_API_KEY})
         if response.status_code == requests.codes.ok:
-            return response
+            result = json.loads(response.text)
+            return result
     except ReadTimeout:
         print('Не удалось получить информацию о фильме')
 

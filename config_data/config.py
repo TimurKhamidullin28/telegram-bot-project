@@ -16,5 +16,6 @@ BASE_URL = 'https://api.kinopoisk.dev/v1.4/movie'
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
     ("help", "Вывести справку по командам бота"),
-    ("movie", "Найти фильм по названию")
+    ("movie", "Найти фильм по названию"),
+    ("history", "История поиска")
 )

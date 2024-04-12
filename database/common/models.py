@@ -24,7 +24,7 @@ class History(BaseModel):
 
     def __str__(self):
         return '{date} - {film_title}'.format(
-            date=self.created_at.strftime("%d.%m.%Y, %H:%M:%S"),
+            date=self.created_at,
             film_title=self.title
         )
 
