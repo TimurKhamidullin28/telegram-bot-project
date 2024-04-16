@@ -1,1 +1,1 @@
-from . import find_movie, history_search
+from . import find_movie, history_search, searchByGenreAndRt

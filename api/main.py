@@ -10,7 +10,7 @@ from utils.create_movie_list import create_movie_list
 
 def api_request(endpoint: str, headers, params) -> requests.Response:
     return requests.get(
-        f'{BASE_URL}/{endpoint}',
+        f'{BASE_URL}/{endpoint}' if endpoint else f'{BASE_URL}',
         headers=headers,
         params=params,
         timeout=15
@@ -35,6 +35,20 @@ def get_movie(id_number: int) -> List[Movie]:
     result = list()
     response = api_request(f'{id_number}', headers={
         'X-API-KEY': KINOPOISK_API_KEY}, params={})
-    result.append(json.loads(response.text))
-    new_result = create_movie_list(result)
-    return new_result
+    if response.status_code == requests.codes.ok:
+        result.append(json.loads(response.text))
+        new_result = create_movie_list(result)
+        return new_result
+
+
+def find_by_genre_and_rt(genre_name: str, rating: int or float, quantity: int) -> Response:
+    response = api_request('', params={
+        'page': 1,
+        'limit': quantity,
+        'rating.imdb': f'{rating}-10',
+        'genres.name': genre_name.lower(),
+        'type': 'movie'
+    }, headers={'X-API-KEY': KINOPOISK_API_KEY})
+    if response.status_code == requests.codes.ok:
+        data = json.loads(response.text)
+        return data
