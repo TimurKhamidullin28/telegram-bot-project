@@ -26,7 +26,8 @@ pip install -r requirements.txt
 ```
 
 ### Получение ключа от API Кинопоиска
-Для работы с API Кинопоиска Вам необходимо получить токен в боте [@kinopoiskdev_bot](https://t.me/kinopoiskdev_bot).\  После получения токена, Вам необходимо авторизоваться в [Документации](https://api.kinopoisk.dev/documentation), для этого нажмите на кнопку **Authorize** и введите токен в поле **Value**.
+Для работы с API Кинопоиска Вам необходимо получить токен в боте [@kinopoiskdev_bot](https://t.me/kinopoiskdev_bot).\
+После получения токена, Вам необходимо авторизоваться в [Документации](https://api.kinopoisk.dev/documentation), для этого нажмите на кнопку **Authorize** и введите токен в поле **Value**.
 
 ## Получение информации о фильме по ID Кинопоиска
 ```python
@@ -130,13 +131,13 @@ for movie in movies:
 ```
 
 ### Описание функции `find_by_genre_and_rt`
-У функции есть обязательные аргументы: genre_name, rating и quantity (жанр, рейтинг и количество фильмов, соответственно), по которым будет производиться поиск.\ 
+У функции есть обязательные аргументы: genre_name, rating и quantity (жанр, рейтинг и количество фильмов, соответственно), по которым будет производиться поиск.\
 По аналогии с функцией `find_movie` на сервер отправляется GET-запрос с указанием следующих параметров(params):\
-'page': 1,\ 
-'limit': quantity,\ 
-'rating.imdb': `f'{rating}-10'`,\ 
-'genres.name': `genre_name.lower()`,\ 
-'type': 'movie'.\ 
+'page': 1,\
+'limit': quantity,\
+'rating.imdb': `f'{rating}-10'`,\
+'genres.name': `genre_name.lower()`,\
+'type': 'movie'.\
 Функция `find_by_genre_and_rt` возвращает ответ от сервера, преобразованный в формат json.
 
 ### Применение функции `find_by_genre_and_rt` в Telegram-боте
