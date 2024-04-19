@@ -13,3 +13,9 @@ def movies_markup(movies_lst: List[Movie]):
                    )
 
     return markup
+
+
+def genres_markup():
+    markup = InlineKeyboardMarkup()
+    markup.add(InlineKeyboardButton("Список жанров", callback_data="genres"))
+    return markup

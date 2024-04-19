@@ -1,7 +1,7 @@
 from telebot.types import Message
 from api.main import get_movie, find_by_genre_and_rt
 from database.functions import checkout_user
-from keyboards.inline.main import movies_markup
+from keyboards.inline.main import movies_markup, genres_markup
 from loader import bot
 from states.main import UserState
 from utils.create_movie_list import create_movie_list
@@ -15,6 +15,7 @@ def find_by_genre(message: Message) -> None:
         return
 
     bot.send_message(user_id, "Введите интересующий Вас жанр")
+    bot.send_message(message.from_user.id, 'Посмотреть список:', reply_markup=genres_markup())
     bot.set_state(message.from_user.id, UserState.genre_name)
 
 
@@ -57,8 +58,3 @@ def process_quantity_films(message: Message) -> None:
         bot.delete_state(message.from_user.id)
     else:
         bot.send_message(message.from_user.id, 'Введите число фильмов, пожалуйста')
-
-
-@bot.callback_query_handler(func=lambda message: True)
-def callback_query(message):
-    bot.send_message(message.from_user.id, *get_movie(message.data))

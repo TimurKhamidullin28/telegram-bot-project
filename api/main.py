@@ -52,3 +52,17 @@ def find_by_genre_and_rt(genre_name: str, rating: int or float, quantity: int) -
     if response.status_code == requests.codes.ok:
         data = json.loads(response.text)
         return data
+
+
+def all_genres():
+    result = list()
+    response = requests.get(
+        'https://api.kinopoisk.dev/v1/movie/possible-values-by-field',
+        headers={'X-API-KEY': KINOPOISK_API_KEY},
+        params={'field': 'genres.name'},
+        timeout=15
+    )
+    data = json.loads(response.text)
+    for i_dict in data:
+        result.append(i_dict["name"])
+    return '\n'.join(result)

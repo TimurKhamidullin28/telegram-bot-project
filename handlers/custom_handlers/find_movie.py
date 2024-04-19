@@ -1,6 +1,6 @@
 from datetime import datetime
 import api.main
-from api.main import get_movie
+from api.main import get_movie, all_genres
 from database.common.models import db, History
 from database.functions import checkout_user
 from keyboards.inline.main import movies_markup
@@ -39,4 +39,7 @@ def process_film_title(message: Message) -> None:
 
 @bot.callback_query_handler(func=lambda message: True)
 def callback_query(message):
-    bot.send_message(message.from_user.id, *get_movie(message.data))
+    if message.data == "genres":
+        bot.send_message(message.from_user.id, all_genres())
+    else:
+        bot.send_message(message.from_user.id, *get_movie(message.data))
