@@ -3,7 +3,10 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from database.common.models import Movie
 
 
-def movies_markup(movies_lst: List[Movie]):
+def movies_markup(movies_lst: List[Movie]) -> InlineKeyboardMarkup:
+    """
+    Функция, реализующая перечень кнопок на основе полученного на вход списка объектов класса Movie
+    """
     movies = movies_lst
     markup = InlineKeyboardMarkup()
     for movie in movies:
@@ -15,7 +18,11 @@ def movies_markup(movies_lst: List[Movie]):
     return markup
 
 
-def genres_markup():
+def genres_markup() -> InlineKeyboardMarkup:
+    """
+    Функция, реализующая кнопку-подсказку для пользователя.
+    При нажатии на нее будет отображен перечень всех жанров
+    """
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton("Список жанров", callback_data="genres"))
     return markup

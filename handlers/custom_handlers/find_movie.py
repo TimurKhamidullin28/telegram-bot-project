@@ -38,7 +38,10 @@ def process_film_title(message: Message) -> None:
 
 
 @bot.callback_query_handler(func=lambda message: True)
-def callback_query(message):
+def callback_query(message) -> None:
+    """
+    Функция-обработчик, которая срабатывает при нажатии кнопок вида InlineKeyboardButton
+    """
     if message.data == "genres":
         bot.send_message(message.from_user.id, all_genres())
     else:

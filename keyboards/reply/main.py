@@ -1,7 +1,10 @@
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 
-def menu_markup():
+def menu_markup() -> ReplyKeyboardMarkup:
+    """
+    Функция, реализующая кнопки, при нажатии на которых будет выполняться соответствующая команда
+    """
     keyboard_markup = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
     btn_1 = KeyboardButton('/movie')
     btn_2 = KeyboardButton('/genre_and_rt')

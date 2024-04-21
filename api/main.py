@@ -9,6 +9,12 @@ from utils.create_movie_list import create_movie_list
 
 
 def api_request(endpoint: str, headers, params) -> requests.Response:
+    """
+    Универсальная функция, которая делает запросы к API Кинопоиска
+    :param endpoint: окончание URL-адреса
+    :param headers: заголовки запроса
+    :param params: параметры запроса, части URL-адреса
+    """
     return requests.get(
         f'{BASE_URL}/{endpoint}' if endpoint else f'{BASE_URL}',
         headers=headers,
@@ -18,20 +24,23 @@ def api_request(endpoint: str, headers, params) -> requests.Response:
 
 
 def find_movie(title: Any, page: int = 1, limit: int = 10) -> Response:
-    try:
-        response = api_request('search', params={
-            'page': page,
-            'limit': limit,
-            'query': title.lower() if isinstance(title, str) else title
-        }, headers={'X-API-KEY': KINOPOISK_API_KEY})
-        if response.status_code == requests.codes.ok:
-            result = json.loads(response.text)
-            return result
-    except ReadTimeout:
-        print('Не удалось получить информацию о фильме')
+    """
+    Функция, реализующая поиск фильма через API Кинопоиска по названию
+    """
+    response = api_request('search', params={
+        'page': page,
+        'limit': limit,
+        'query': title.lower() if isinstance(title, str) else title
+    }, headers={'X-API-KEY': KINOPOISK_API_KEY})
+    if response.status_code == requests.codes.ok:
+        result = json.loads(response.text)
+        return result
 
 
 def get_movie(id_number: int) -> List[Movie]:
+    """
+    Функция, которая запрашивает информацию о фильме по ID фильма на Кинопоиске
+    """
     result = list()
     response = api_request(f'{id_number}', headers={
         'X-API-KEY': KINOPOISK_API_KEY}, params={})
@@ -42,6 +51,9 @@ def get_movie(id_number: int) -> List[Movie]:
 
 
 def find_by_genre_and_rt(genre_name: str, rating: int or float, quantity: int) -> Response:
+    """
+    Функция, реализующая поиск фильмов через API Кинопоиска по жанру и рейтингу
+    """
     response = api_request('', params={
         'page': 1,
         'limit': quantity,
@@ -54,7 +66,11 @@ def find_by_genre_and_rt(genre_name: str, rating: int or float, quantity: int) -
         return data
 
 
-def all_genres():
+def all_genres() -> str:
+    """
+    Функция, запрашивающая все доступные значения по жанрам фильмов.
+    Применяется в боте в качестве подсказки для удобства пользователей
+    """
     result = list()
     response = requests.get(
         'https://api.kinopoisk.dev/v1/movie/possible-values-by-field',
@@ -62,7 +78,8 @@ def all_genres():
         params={'field': 'genres.name'},
         timeout=15
     )
-    data = json.loads(response.text)
-    for i_dict in data:
-        result.append(i_dict["name"])
-    return '\n'.join(result)
+    if response.status_code == requests.codes.ok:
+        data = json.loads(response.text)
+        for i_dict in data:
+            result.append(i_dict["name"])
+        return '\n'.join(result)

@@ -3,6 +3,10 @@ from database.common.models import Movie
 
 
 def create_movie_list(lst: List[Dict]) -> List[Movie]:
+    """
+    Функция, преобразующая ответы в формате json, полученные от API Кинопоиска,
+    в объекты класса Movie
+    """
     result_lst = list()
     for i_dict in lst:
         movie = Movie(id_movie=i_dict['id'],
