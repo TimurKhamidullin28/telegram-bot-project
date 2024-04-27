@@ -1,7 +1,7 @@
 import json
 from typing import Any, List
 import requests
-from requests import ReadTimeout, Response
+from requests import Response
 
 from config_data.config import BASE_URL, KINOPOISK_API_KEY
 from database.common.models import Movie
